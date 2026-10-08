@@ -46,9 +46,17 @@ code fails.  Ask:
 - What happens if this is called concurrently, or re-entrantly?
 - What happens at boundary values (zero, one, maximum, empty)?
 
-If you can construct a concrete failure scenario, report it.  If you
-tried and could not, that strengthens your confidence in the code —
-but do not report "I tried to break it and couldn't" as a finding.
+If you can construct a concrete failure scenario, report it with a
+reproducer: describe the steps a user would take in GDB to trigger
+the bug.  A good reproducer includes a small C (or other language)
+test program if needed, the GDB commands to run, and what you expect
+to go wrong (crash, wrong output, assertion failure).  Do not attempt
+to compile or run the reproducer yourself — just describe it clearly
+enough that the reviewer can try it.
+
+If you tried to construct a failure scenario and could not, that
+strengthens your confidence in the code — but do not report "I tried
+to break it and couldn't" as a finding.
 
 ### Step 4: Identify what is missing
 
