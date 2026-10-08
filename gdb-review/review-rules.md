@@ -8,6 +8,71 @@ change the benefit of the doubt.
 
 ---
 
+## Review Methodology
+
+Before writing any findings, work through these steps in order.
+Do not skip steps — the analysis you do here is what makes the
+review thorough.
+
+### Step 1: Build a mental model
+
+For each file changed by the patch, read the surrounding code — not
+just the changed lines.  Understand what the function did before the
+change and what it does after.  For each modified function, identify:
+
+- What invariants does this function assume about its inputs?
+- What side effects does it have?
+- What does its caller expect it to return or guarantee?
+
+### Step 2: Trace callers and callees
+
+For each function that was added or modified, read at least one
+caller.  Check what values the caller actually passes.  Can it pass
+NULL?  Can it pass a negative number?  Can the collection be empty?
+If the patch adds a new function, check how it is called — does the
+call site handle all possible return values?
+
+For functions that were changed, check whether the change altered the
+function's contract in a way that could break existing callers that
+were not updated by this patch.
+
+### Step 3: Adversarial analysis
+
+For each change, actively try to construct a scenario where the new
+code fails.  Ask:
+
+- What input would make this crash or produce wrong results?
+- What state would need to exist for this to go wrong?
+- What happens if this is called concurrently, or re-entrantly?
+- What happens at boundary values (zero, one, maximum, empty)?
+
+If you can construct a concrete failure scenario, report it.  If you
+tried and could not, that strengthens your confidence in the code —
+but do not report "I tried to break it and couldn't" as a finding.
+
+### Step 4: Identify what is missing
+
+Look beyond what the patch does and consider what it should have done
+but didn't:
+
+- A new code path that lacks error handling present in sibling paths.
+- A struct that gained a new member but was not updated in all the
+  places where the struct is initialised, copied, or serialised.
+- A header that gained a new declaration but no corresponding
+  documentation comment.
+- A function that changed behaviour but the callers were not audited.
+- A user-visible change that lacks a NEWS entry or documentation
+  update.
+
+### Step 5: Verify commit message claims
+
+Read the commit message as a set of factual claims about the code.
+For each non-trivial claim ("X now calls Y", "this fixes the case
+where Z"), verify it against the actual diff.  Report any claim that
+is inaccurate, misleading, or no longer true.
+
+---
+
 ## 1. Commit Message
 
 - Summary line must match what the diff actually does ("add" means

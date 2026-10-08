@@ -42,9 +42,8 @@ change the benefit of the doubt.
 1. **Find the source.**  See [locate-source.md](locate-source.md).
 2. **Read the patch.**  Read the commit message (`git log`) and the
    full diff (`git diff`).
-3. **Understand the context.**  For each changed file, read enough
-   surrounding code to understand the change.
-4. **Review against the rules.**  Evaluate the patch against every
-   item in [review-rules.md](review-rules.md).
-5. **Format the output.**  Present findings as described in
+3. **Analyse and review.**  Work through the review methodology and
+   checklist in [review-rules.md](review-rules.md).  Do the analysis
+   steps before writing any findings.
+4. **Format the output.**  Present findings as described in
    [format-review.md](format-review.md).
