@@ -48,6 +48,10 @@ Number findings sequentially across all categories.  For each finding:
 Do not pad findings with praise or hedging.  Be direct: "This is
 wrong because..." not "This might potentially be an issue...".
 
+Every finding must identify a concrete problem.  Do not create
+numbered entries to note that something is correct or "all good" —
+if there is no issue, there is no finding.
+
 ## Assessment
 
 End the review with an assessment line in exactly this format:
