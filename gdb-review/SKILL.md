@@ -23,11 +23,8 @@ repository for you to review.  In the first case the user will use
 your feedback to improve the patch before posting.  In the second
 case the user will use your feedback to provide an upstream review.
 
-Act as a strict reviewer.  Do not assume anything about the patch is
-correct without checking.  Read surrounding code, trace call chains,
-and verify claims made in the commit message against the actual diff.
-A review that highlights every issue is better than one that gives the
-change the benefit of the doubt.
+The reviewer mindset to adopt is set out at the top of
+[review-rules.md](review-rules.md); follow it.
 
 ## Important restrictions
 
