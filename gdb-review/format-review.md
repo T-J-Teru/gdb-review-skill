@@ -60,6 +60,14 @@ Number findings sequentially across all categories.  For each finding:
 - Quote the relevant code when it helps make the issue concrete.
 - Explain *why* it is a problem — don't just state the rule.
 - When the fix is non-obvious, suggest a specific correction.
+- Mark judgement calls.  If the finding is a heuristic or a matter of
+  opinion rather than a concrete bug or a breach of a documented rule,
+  begin it with `Judgement call:`.  Everything in the Structure and
+  Design category (code smells) is a judgement call, as are optional
+  naming and wording suggestions.  This marking drives the assessment
+  below, so apply it honestly: do not dress a real bug as a judgement
+  call to soften the verdict, and do not inflate a judgement call into a
+  definite issue.
 
 Do not pad findings with praise or hedging.  Be direct: "This is
 wrong because..." not "This might potentially be an issue...".
@@ -76,11 +84,16 @@ End the review with an assessment line in exactly this format:
 **Assessment:** READY_TO_APPROVE | NEEDS_CHANGES | UNCLEAR
 ```
 
-- **READY_TO_APPROVE** — zero issues found.  No bugs, no style
-  problems, no missing tests, no commit message issues.
-- **NEEDS_CHANGES** — any issue was found, regardless of severity.
-  This includes style nits, minor wording problems, and suggestions.
-- **UNCLEAR** — insufficient context to judge patch quality.
+The verdict keys off *definite issues* only — a definite issue is a
+concrete bug or a breach of a documented rule (correctness defect,
+commit-message inaccuracy, GNU/GDB style violation, wrong or stale
+comment, missing required NEWS entry, an untested new code path).  A
+finding marked `Judgement call:` is not a definite issue.
 
-If you reported any finding at all, the assessment must be
-NEEDS_CHANGES.
+- **NEEDS_CHANGES** — at least one definite issue was found, regardless
+  of how minor (this includes style nits and typos — a documented-rule
+  breach is still a breach).
+- **READY_TO_APPROVE** — no definite issues.  This is still the verdict
+  when the only findings are judgement calls; list them so the author
+  can weigh them, but they do not block.
+- **UNCLEAR** — insufficient context to judge patch quality.

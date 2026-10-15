@@ -68,9 +68,12 @@ The reviewer mindset to adopt is set out at the top of
       - the brief: "Return a plain list of findings only.  For each: the
         section or smell it comes from, the file and line (or function),
         the problem in one sentence, why it is a problem, and a suggested
-        fix when non-obvious.  Do NOT write a formatted report, headings,
-        or an assessment line -- the caller does that.  Do not report
-        that something is correct."
+        fix when non-obvious.  Flag each finding as either a definite
+        issue (a concrete bug or a breach of a documented rule) or a
+        judgement call (a heuristic or matter of opinion); everything
+        from the Structure and Design section is a judgement call.  Do
+        NOT write a formatted report, headings, or an assessment line --
+        the caller does that.  Do not report that something is correct."
 
       The three axes, and the sections each one owns:
 
