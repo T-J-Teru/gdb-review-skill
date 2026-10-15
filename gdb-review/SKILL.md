@@ -1,9 +1,10 @@
 ---
 name: gdb-review
 description: >
-  Review a GDB patch for correctness, style, documentation, and testing.
-  Use when the user asks to review a commit, patch, or series of patches
-  in a GDB or binutils-gdb repository.
+  Review a GDB patch for correctness, style, documentation, and testing,
+  operating on a commit or range of commits in a GDB or binutils-gdb
+  repository.  Invoked manually via /gdb-review; the model does not
+  trigger this skill automatically.
 disable-model-invocation: true
 allowed-tools: Bash(git *) Bash(test *) Read Grep Glob
 argument-hint: "[commit-range]"
