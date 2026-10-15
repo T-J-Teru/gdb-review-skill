@@ -14,10 +14,11 @@ The `gdb-review/` directory is a Claude Code skill. It contains:
 
 ## Installation
 
-Symlink the `gdb-review` directory into your Claude skills directory:
+Symlink the `gdb-review` directory (a subdirectory of this repository,
+alongside this README) into your Claude skills directory:
 
 ```bash
-ln -s /path/to/gdb-review-skill/gdb-review ~/.claude/skills/gdb-review
+ln -s /path/to/this/repo/gdb-review ~/.claude/skills/gdb-review
 ```
 
 ## Usage
@@ -37,5 +38,5 @@ Point the review-bot config at this file:
 
 ```yaml
 agent:
-  review_rules_file: /path/to/gdb-review-skill/gdb-review/review-rules.md
+  review_rules_file: /path/to/this/repo/gdb-review/review-rules.md
 ```
