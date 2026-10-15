@@ -28,7 +28,10 @@ categories by severity — most serious first:
 5. **Comments and Documentation** — stale parameter names, missing
    comments, texinfo issues.
 6. **API Consistency** — deviation from neighbouring code patterns.
-7. **Structural/Design Issues** — patch splitting, layering concerns.
+7. **Structural/Design Issues** — patch splitting, layering concerns,
+   and code smells per the Structure and Design rules (duplicated logic,
+   feature envy, speculative generality, etc.).  These are judgement
+   calls — label them as such.
 8. **Testing** — missing test coverage, test style issues.
 9. **Minor Issues** — typos, naming nits, minor suggestions.
 
@@ -38,11 +41,11 @@ sections.
 These presentation categories deliberately do **not** mirror the
 numbered sections of [review-rules.md](review-rules.md).  That file
 groups the review *topically* (Commit Message, Coding Style, Comments
-and Documentation, Code Correctness, API Consistency, Test Coverage,
-NEWS File); the list above groups the *output* by severity, splits some
-rule sections across several categories, and adds presentation-only
-buckets ("Structural/Design Issues", "Minor Issues") that have no single
-backing rule section.  The mapping is therefore intentionally not 1:1,
+and Documentation, Code Correctness, API Consistency, Structure and
+Design, Test Coverage, NEWS File); the list above groups the *output* by
+severity, splits some rule sections across several categories, and adds a
+presentation-only bucket ("Minor Issues") with no single backing rule
+section.  The mapping is therefore intentionally not 1:1,
 and the two lists are maintained independently — editing the rules does
 not require renumbering these categories, and vice versa.  A finding
 produced by any rule section should still land in whichever category

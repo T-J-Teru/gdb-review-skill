@@ -180,7 +180,71 @@ is inaccurate, misleading, or no longer true.
 - Copy-paste errors: duplicated blocks where only part was updated
   (e.g. a docstring that refers to the wrong event type).
 
-## 6. Test Coverage
+## 6. Structure and Design
+
+These are design heuristics, not hard rules.  Anything in sections 1-5
+above, or any other documented GDB convention, overrides them; so does
+anything a linter or the compiler already enforces.  Report a structural
+concern as a judgement call ("possible Feature Envy") -- name it, quote
+the hunk, and say why -- rather than as a definite violation.
+
+Because each commit is reviewed on its own, "duplicated" or "scattered"
+below means within this commit's diff, unless the surrounding source
+makes a wider problem obvious.
+
+### Patch structure
+
+- One commit should make one logical change.  A commit that bundles
+  unrelated work (a bug fix plus an unrelated refactor, or several
+  independent fixes) should be split into separate patches.  This is
+  standard GDB list feedback.
+- Separate mechanical change from behavioural change: a refactor and the
+  feature that builds on it are usually two commits, the refactor first.
+- Layering: a change to a low-level component (e.g. `gdbsupport/`,
+  `gdb/target.c`) should not reach up into higher-level concepts such as
+  a specific UI, source language, or target.  Watch for a helper placed
+  in the wrong file for the abstraction level it operates at.
+
+### Code smells
+
+A fixed baseline from Fowler's _Refactoring_ (ch.3).  Each reads
+*what it is* -> *how to fix*; match each against the change:
+
+- **Mysterious Name**: a function, variable, or type whose name does not
+  reveal what it does or holds. -> rename it; if no honest name comes,
+  the design is murky.
+- **Duplicated Code**: the same logic shape appears in more than one hunk
+  or file in the change. -> extract the shared shape and call it from
+  both.
+- **Feature Envy**: a method (or free function) that reaches into another
+  class's data more than its own. -> move it onto the data it envies.
+- **Data Clumps**: the same few fields or parameters keep travelling
+  together (a type wanting to be born). -> bundle them into one type and
+  pass that.
+- **Primitive Obsession**: a primitive, `CORE_ADDR`, or raw string
+  standing in for a domain concept that deserves its own type. -> give
+  the concept its own small type.
+- **Repeated Switches**: the same `switch` or `if`-cascade on the same
+  type recurs across the change. -> replace with polymorphism, or one
+  table both sites share.
+- **Shotgun Surgery**: one logical change forces scattered edits across
+  many files. -> gather what changes together into one place.
+- **Divergent Change**: one file or module is edited for several
+  unrelated reasons. -> split so each module changes for one reason.  At
+  commit granularity this is the "one logical change" rule above.
+- **Speculative Generality**: abstraction, parameters, or hooks added for
+  needs the patch does not have. -> delete it; inline back until a real
+  need appears.
+- **Message Chains**: long `a->b ()->c ()->d ()` navigation the caller
+  should not depend on. -> hide the walk behind one method on the first
+  object.
+- **Middle Man**: a class or function that mostly just delegates onward.
+  -> remove it and call the real target directly.
+- **Refused Bequest**: a subclass or implementer that ignores or
+  overrides most of what it inherits. -> drop the inheritance and use
+  composition.
+
+## 7. Test Coverage
 
 - Each branch of new conditional logic should have a test.
 - Error/failure paths: if the code handles "X not found" or "write
@@ -211,7 +275,7 @@ is inaccurate, misleading, or no longer true.
   For MI tests use `${fullname_syntax}$srcfile`; for CLI tests use
   `[^\r\n]+/$srcfile`.
 
-## 7. NEWS File
+## 8. NEWS File
 
 - New commands added to GDB must be mentioned in the NEWS file and in
   the commit message.
