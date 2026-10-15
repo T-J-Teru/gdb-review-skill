@@ -40,10 +40,20 @@ change the benefit of the doubt.
 ## Steps
 
 1. **Find the source.**  See [locate-source.md](locate-source.md).
-2. **Read the patch.**  Read the commit message (`git log`) and the
-   full diff (`git diff`).
-3. **Analyse and review.**  Work through the review methodology and
-   checklist in [review-rules.md](review-rules.md).  Do the analysis
-   steps before writing any findings.
-4. **Format the output.**  Present findings as described in
-   [format-review.md](format-review.md).
+2. **Enumerate the commits.**  Resolve `$ARGUMENTS` (default
+   `HEAD~1..HEAD`) to the list of commits it names, oldest first:
+   `git log --reverse --oneline $ARGUMENTS`.  Each commit is a separate
+   patch and must be reviewed on its own — GDB patches are posted and
+   reviewed one commit at a time, so never review the squashed diff of
+   a range.
+3. **Review each commit in turn**, oldest first (the order in which the
+   series would be applied).  For each commit:
+   a. **Read the patch.**  Read that commit's message and its own diff:
+      `git show <commit>` (or `git log -1 <commit>` plus
+      `git diff <commit>~1 <commit>`).
+   b. **Analyse and review.**  Work through the review methodology and
+      checklist in [review-rules.md](review-rules.md).  Do the analysis
+      steps before writing any findings.
+   c. **Format the output.**  Present that commit's findings as
+      described in [format-review.md](format-review.md), under its own
+      heading.
