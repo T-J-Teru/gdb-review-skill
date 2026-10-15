@@ -5,7 +5,7 @@ description: >
   Use when the user asks to review a commit, patch, or series of patches
   in a GDB or binutils-gdb repository.
 disable-model-invocation: true
-allowed-tools: Bash(git *) Read Grep Glob
+allowed-tools: Bash(git *) Bash(test *) Read Grep Glob
 argument-hint: "[commit-range]"
 ---
 
