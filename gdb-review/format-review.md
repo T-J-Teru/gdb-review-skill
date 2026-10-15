@@ -35,6 +35,19 @@ categories by severity — most serious first:
 Only include categories that have findings.  Do not include empty
 sections.
 
+These presentation categories deliberately do **not** mirror the
+numbered sections of [review-rules.md](review-rules.md).  That file
+groups the review *topically* (Commit Message, Coding Style, Comments
+and Documentation, Code Correctness, API Consistency, Test Coverage,
+NEWS File); the list above groups the *output* by severity, splits some
+rule sections across several categories, and adds presentation-only
+buckets ("Structural/Design Issues", "Minor Issues") that have no single
+backing rule section.  The mapping is therefore intentionally not 1:1,
+and the two lists are maintained independently — editing the rules does
+not require renumbering these categories, and vice versa.  A finding
+produced by any rule section should still land in whichever category
+above best fits it.
+
 ## How to present a finding
 
 Number findings sequentially across all categories.  For each finding:
