@@ -58,6 +58,16 @@ If you tried to construct a failure scenario and could not, that
 strengthens your confidence in the code — but do not report "I tried
 to break it and couldn't" as a finding.
 
+More generally, a finding must require the author to act.  Before
+writing a finding, ask: does the author need to change or consider
+something because of this?  If your conclusion is that the code is
+correct, do not write a finding — that is analysis, not a finding.
+This test applies to the conclusion, not the method: an item framed
+as a verification pass ("here is my analysis confirming the code is
+correct") is just as much a non-finding as "I tried to break it and
+couldn't".  Any item whose body ends by confirming correctness must
+be deleted.
+
 ### Step 4: Identify what is missing
 
 Look beyond what the patch does and consider what it should have done
